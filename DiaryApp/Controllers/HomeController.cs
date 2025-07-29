@@ -1,6 +1,6 @@
-using System.Diagnostics;
 using DiaryApp.Models;
 using Microsoft.AspNetCore.Mvc;
+using System.Diagnostics;
 
 namespace DiaryApp.Controllers
 {
@@ -14,6 +14,11 @@ namespace DiaryApp.Controllers
         }
 
         public IActionResult Index()
+        {
+            return View();
+        }
+
+        public IActionResult MyPage()
         {
             return View();
         }
