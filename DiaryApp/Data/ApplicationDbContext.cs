@@ -12,10 +12,37 @@ namespace DiaryApp.Data
 
         public DbSet<DiaryEntry> DiaryEntries { get; set; }
 
-        // Four steps to add a table:
-        // 1. Create a model class (DiaryEntry)
-        // 2. Add a DbSet property in ApplicationDbContext
-        // 3. Add a migration using the command: add-migration AddDiaryEntryTable
-        // 4. Update the database using the command: update-database
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            var d1 = new DateTime(2024, 01, 10, 12, 00, 00, DateTimeKind.Utc);
+            var d2 = new DateTime(2024, 02, 05, 15, 30, 00, DateTimeKind.Utc);
+            var d3 = new DateTime(2024, 03, 12, 09, 45, 00, DateTimeKind.Utc);
+
+            modelBuilder.Entity<DiaryEntry>().HasData(
+                new DiaryEntry
+                {
+                    Id = 1,
+                    Title = "Went Hiking",
+                    Content = "Went hiking with Joe!",
+                    CreationDate = d1
+                },
+                new DiaryEntry
+                {
+                    Id = 2,
+                    Title = "Went Shoping",
+                    Content = "Went shoping with Joe!",
+                    CreationDate = d2
+                },
+                new DiaryEntry
+                {
+                    Id = 3,
+                    Title = "Went Diving",
+                    Content = "Went diving with Joe!",
+                    CreationDate = d3
+                }
+                );
+        }
     }
 }
