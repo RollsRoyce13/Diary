@@ -19,5 +19,19 @@ namespace DiaryApp.Controllers
 
             return View(objDiaryEntryList); // Return the list of diary entries to the view
         }
+
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        [HttpPost] // This attribute indicates that this method will handle POST requests
+        public IActionResult Create(DiaryEntry obj)
+        {
+            _db.DiaryEntries.Add(obj); // Add the new diary entry to the database
+            _db.SaveChanges(); // Save changes to the database
+
+            return RedirectToAction("Index"); // Redirect to the Index action after creating a new entry
+        }
     }
 }
