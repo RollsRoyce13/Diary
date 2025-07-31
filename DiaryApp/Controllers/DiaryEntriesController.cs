@@ -15,9 +15,10 @@ namespace DiaryApp.Controllers
 
         public IActionResult Index()
         {
-            List<DiaryEntry> objDiaryEntryList = _db.DiaryEntries.ToList(); // Get all entries from the database
+            List<DiaryEntry> objDiaryEntryList = _db.DiaryEntries.ToList();
+            objDiaryEntryList = objDiaryEntryList.OrderBy(x => x.CreationDate).ToList();
 
-            return View(objDiaryEntryList); // Return the list of diary entries to the view
+            return View(objDiaryEntryList);
         }
 
         public IActionResult Create()
@@ -25,13 +26,87 @@ namespace DiaryApp.Controllers
             return View();
         }
 
-        [HttpPost] // This attribute indicates that this method will handle POST requests
+        [HttpPost]
         public IActionResult Create(DiaryEntry obj)
         {
-            _db.DiaryEntries.Add(obj); // Add the new diary entry to the database
-            _db.SaveChanges(); // Save changes to the database
+            if (obj != null && obj.Title.Length < 3)
+            {
+                ModelState.AddModelError("Title", "Title is too short");
+            }
 
-            return RedirectToAction("Index"); // Redirect to the Index action after creating a new entry
+            if (ModelState.IsValid)
+            {
+                _db.DiaryEntries.Add(obj);
+                _db.SaveChanges();
+
+                return RedirectToAction("Index");
+            }
+
+            return View(obj);
+        }
+
+        [HttpGet]
+        public IActionResult Edit(int? id)
+        {
+            if (id == null || id == 0)
+            {
+                return NotFound();
+            }
+
+            DiaryEntry? diaryEntry = _db.DiaryEntries.Find(id);
+
+            if (diaryEntry == null)
+            {
+                return NotFound();
+            }
+
+            return View(diaryEntry);
+        }
+
+        [HttpPost]
+        public IActionResult Edit(DiaryEntry obj)
+        {
+            if (obj != null && obj.Title.Length < 3)
+            {
+                ModelState.AddModelError("Title", "Title is too short");
+            }
+
+            if (ModelState.IsValid)
+            {
+                _db.DiaryEntries.Update(obj);
+                _db.SaveChanges();
+
+                return RedirectToAction("Index");
+            }
+
+            return View(obj);
+        }
+
+        [HttpGet]
+        public IActionResult Delete(int? id)
+        {
+            if (id == null || id == 0)
+            {
+                return NotFound();
+            }
+
+            DiaryEntry? diaryEntry = _db.DiaryEntries.Find(id);
+
+            if (diaryEntry == null)
+            {
+                return NotFound();
+            }
+
+            return View(diaryEntry);
+        }
+
+        [HttpPost]
+        public IActionResult Delete(DiaryEntry obj)
+        {
+            _db.DiaryEntries.Remove(obj);
+            _db.SaveChanges();
+
+            return RedirectToAction("Index");
         }
     }
 }
