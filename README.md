@@ -1,8 +1,8 @@
 # 📔 Diary App
 
 <p align="center">
-  <img src="images/home-view.jpg" alt="Home View" width="530"/>
-  <img src="images/edit-view.jpg" alt="Edit View" width="300"/>
+  <img src="images/home-view.jpg" alt="Home View" width="600"/>
+  <img src="images/edit-view.jpg" alt="Edit View" width="350"/>
 </p>
 
 A simple diary web application built with ASP.NET Core (.NET 9) and Razor Pages. Create, edit, and manage your personal diary entries with a clean, modern interface! ✍️
