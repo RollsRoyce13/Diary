@@ -1,5 +1,7 @@
 # 📔 Diary App
 
+![Screenshot of Diary App UI](images/screenshot.jpg)
+
 A simple diary web application built with ASP.NET Core (.NET 9) and Razor Pages. Create, edit, and manage your personal diary entries with a clean, modern interface! ✍️
 
 ---
